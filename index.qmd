@@ -1,11 +1,11 @@
 ---
-talk-title: "Title"
+talk-title: "An Infectious Disease Forecast Hub for Canada"
 talk-short-title: "{{< meta talk-title >}}"
-talk-subtitle: "Subtitle"
+talk-subtitle: ""
 author: "Daniel J. McDonald"
 other-authors: ""
-repo-address: "dajmcdon/myspecial-talk"
-talk-date: "Venue -- dd Somemonth yyyy"
+repo-address: "dajmcdon/phac-emnid-fcast-hub"
+talk-date: "PHAC-EMNID &mdash; 26 June 2024"
 format: revealjs
 ---
 
@@ -15,76 +15,204 @@ format: revealjs
 {{< include _titleslide.qmd >}}
 
 
+## Why produce forecasts?
 
-## Slides begin
+* Surveillance systems provide a comprehensive picture of disease activity
+* Fundamental for situational awareness and risk communication
+* But they measure activity [after]{.tertiary} it has occurred
+* Do not anticipate future trends to inform risk assessment and healthcare preparedness
 
-## Callouts
 
-::: {.callout-note}
-You can use these. See <https://quarto.org/docs/authoring/callouts.html>
+## The state of forecasting, early 2010s
+
+::: {.callout-tip appearance="minimal"}
+Comparing the accuracy of forecasting applications is difficult 
+because forecasting methods, forecast outcomes, and reported 
+validation metrics varied widely. 
+
+-- Chretien and others, PLOS ONE, 2014
 :::
 
-## Final slide {.smaller}
+[Many models]{.tertiary}
+: Most were published months to years after the forecasted event
+
+[Different targets]{.tertiary}
+: Weekly incidence, epidemic duration, monthly visits, time of peak
+
+[Different evaluation metrics]{.tertiary}
+: Mean absolute error, median absolute error, correlation
+
+[Unclear utility to public health]{.tertiary}
+: [white]{style="color: white"}
 
 
-### Thanks:
+::: aside
+Some slides courtesy of [Prof. Nicholas Reich](https://reichlab.io)
+:::
 
-```{r qr-codes}
-#| include: false
-#| fig-format: png
-# Code to generate QR codes to link to any external sources
-qrdat <- function(text, ecl = c("L", "M", "Q", "H")) {
-  x <- qrcode::qr_code(text, ecl)
-  n <- nrow(x)
-  s <- seq_len(n)
-  tib <- tidyr::expand_grid(x = s, y = rev(s))
-  tib$z <- c(x)
-  tib
-}
-qr1 <- qrdat("https://cmu-delphi.github.io/epiprocess/")
-qr2 <- qrdat("https://cmu-delphi.github.io/epipredict/")
-ggplot(qr1, aes(x, y, fill = z)) +
-  geom_raster() +
-  ggtitle("{epiprocess}") +
-  coord_equal(expand = FALSE) +
-  scale_fill_manual(values = c("white", "black"), guide = "none") +
-  theme_void(base_size = 18) +
-  theme(plot.title = element_text(hjust = .5))
-ggplot(qr2, aes(x, y, fill = z)) +
-  geom_raster() +
-  labs(title = "{epipredict}") +
-  coord_equal(expand = FALSE) +
-  scale_fill_manual(values = c("white", "black"), guide = "none") +
-  theme_void(base_size = 18) +
-  theme(plot.title = element_text(hjust = .5))
+
+## 
+
+![](https://hubverse.io/en/latest/_images/hub-timeline.png){fig-align="center" height=600px}
+
+::: aside
+Figure by Alex Vespignani and Nicole Samay
+:::
+
+## Why is collaborative modelling important?
+
+::: flex
+
+::: w-50
+::: {style="font-size: 80%"}
+
+[Ensemble models are both more accurate and useful than individual models]{.tertiary}
+
+* Even a simple average across models typically has better predictive performance than most or all individual models
+
+[Scientific and structural benefits of modelling via Hubs:]{.tertiary}
+
+* Comparable evaluation across different models
+* Opportunity for scientific exchange, methods & data sharing
+* Transparency of model outputs 
+* Venue for communication with stakeholders
+
+:::
+:::
+
+::: w-50
+
+[Accuracy of 2022--23 CDC FluSight Models]{.primary}
+
+```{r 2023-flu-scores}
+#| fig-height: 8
+#| fig-width: 10
+library(ggridges)
+
+# From FluSight Manuscript Figure 2
+# https://github.com/cdcepi/FluSight-manuscripts
+# code adapted from HospitalAdmissions.../generate_figures_and_tables_2021_2023.R
+winter22_23 <- read_csv(here::here("data/WIS_Season23.csv")) |>
+  mutate(season = "2021-2022") |> 
+  rename("target_end_date" = "date", "WIS" = "wis")
+inc_scores_overall <- winter22_23 %>%
+  # filter(include_overall == "TRUE") %>%
+  group_by(target_end_date, target, location_name, season) %>%
+  mutate(n_models = n()) %>%
+  ##filter(n_models >= 15) %>%
+  arrange(WIS) %>%
+  mutate(model_rank = row_number(), rank_percentile = model_rank/n_models) %>%
+  arrange(-WIS) %>%
+  mutate(rev_rank = (row_number()-1)/(n_models-1)) %>%
+  ungroup() %>%
+  mutate(model = reorder(model, rev_rank, 
+                         FUN=function(x) quantile(x, probs=0.25, na.rm=TRUE))
+  )
+
+inc_scores_overall %>% 
+  ggplot(aes(y = model, x=rev_rank, fill = factor(after_stat(quantile)))) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient", calc_ecdf = TRUE,
+    quantiles = 4, quantile_lines = TRUE, color = "gray30"
+  ) +
+  scale_fill_manual(values = c(primary, secondary, tertiary, fourth_colour), 
+                    name = "Quartiles") +
+  labs(x = "Standardized Rank", y = "", color = "Quartiles",
+       caption = "Mathis and others, doi: 10.1101/2023.12.08.23299726") +
+  scale_x_continuous(limits=c(0,1), expand = expansion(0)) + 
+  theme_bw() + 
+  theme(
+    axis.text = element_text(size = 16), 
+    plot.caption = element_text(size = 16, colour = "grey30")
+  )
 ```
 
-:::: {.columns}
-::: {.column width="50%"}
-- The whole [CMU Delphi Team](https://delphi.cmu.edu/about/team/) (across many institutions)
-- Optum/UnitedHealthcare, Change Healthcare.
-- Google, Facebook, Amazon Web Services.
-- Quidel, SafeGraph, Qualtrics.
-- Centers for Disease Control and Prevention.
-- Council of State and Territorial Epidemiologists
+:::
 :::
 
-::: {.column width="50%"}
+## Key ingredients
 
-![](gfx/qr-epiprocess.png){width="300px"}
-![](gfx/qr-epipredict.png){width="300px"}
+[A target signal that PH cares about]{.primary}
 
+The US CDC uses [weekly laboratory confirmed influenza hospital admissions]{.tertiary}
+
+* Reported to CDC with a few-day delay (required under a funding law, ~2021)
+* We (CMU's Delphi Group) provides these (and many other signals) in a public API
+* We track revisions and backfill
+* Previously used ILI (ECDC uses ILI)
+
+::: flex
+::: w-50
+![](https://www.cdc.gov/flu/images/weekly/flusight/FluSight-logo.jpg?_=02966)
 :::
-
-::::
-
-::: {layout-row=1 fig-align="center"}
-![](gfx/delphi.jpg){height="100px"}
-![](gfx/berkeley.jpg){height="100px"}
-![](gfx/cmu.jpg){height="100px"}
-![](gfx/ubc.jpg){width="250px"}
-![](gfx/usc.jpg){width="250px"}
-![](gfx/stanford.jpg){width="250px"}
+::: w-50
+![](https://respicast.ecdc.europa.eu/assets/media/respicast_logo10.png){style="background-color: #002c62; padding-right: 50px"}
+:::
 :::
 
 
+## Canada has...
+
+* ???
+* Ontario is working with UGuelph to provide data
+* BC has admissions on a Shiny app, I'm trying to get the raw data
+* Other provinces + territories ...
+* We've scraped Test Positivity off the PHAC website, putting it in an API
+
+## Our group(s)
+
+* We can run a Hub and submit forecasts
+* We need data access
+* We can ensure its safety (we do this now)
+* We want the target to be [useful]{.primary}
+* We need more teams to participate!
+
+::: {.callout-important appearance="minimal"}
+
+just need to run a model, and submit a PR every week
+
+:::
+  
+## Collaborators, personnel, and funding
+
+
+::: flex
+
+::: w-60 
+::: {style="font-size: 80%"}
+[Hub Director:]{.primary} Prof. Monica G. Cojocaru 
+
+Assoc. Dean Research and Grad Studies, CEPS UGuelph
+
+ ---
+
+[&mdash; Academic stakeholders]{.tertiary}
+
+Daniel J. McDonald - UBC
+
+Graham Taylor - Prof and CRC, Director of Care-AI, UGuelph
+
+[&mdash; PH / Industry stakeholders]{.tertiary}
+
+Dr. Michelle Murti - Assoc. Chief Medical Officer, MoH Ontario
+
+Dr. Kamil Malikov - Director, MoH Ontario
+
+Tiffany Fitzpatrick – Epidemiologist, PH Ontario
+
+Dr. E Thommes - Senior Modelling Expert [Sanofi Global]{.primary}
+
+Dr. J Lee - Medical Head [Sanofi Canada]{.primary}
+
+Dion Neame MD - Senior Expert [Sanofi Canada]{.primary}
+:::
+:::
+
+::: w-40
+::: center
+
+![](gfx/funding.jpeg)
+
+:::
+:::
+:::

@@ -8,7 +8,7 @@
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.450">
+  <meta name="generator" content="quarto-1.5.45">
 
   <meta name="author" content="Daniel J. McDonald">
   <title>index</title>
@@ -159,7 +159,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -333,61 +334,191 @@
 <!-- Set any of the above to "" to omit them -->
 <!-- Or adjust the formatting in _titleslide.qmd -->
 <div class="flex">
+<div class="w-30">
+
+</div>
+<section id="section" class="slide level2 w-70" data-background-image="gfx/cover-art-1.svg" data-background-size="cover">
+<h2>An Infectious Disease Forecast Hub for Canada</h2>
+<h3 id="section-1"></h3>
+<p><br></p>
+<h4 id="section-2">Daniel J. McDonald</h4>
+<p></p>
+<p>PHAC-EMNID — 26 June 2024</p>
+</section>
+</div>
+<div class="flex">
 <div class="w-20">
 
 </div>
-<section id="meta-talk-title" class="slide level2 w-80" data-background-image="gfx/cover-art-1.svg" data-background-position="bottom">
-<h2>Title</h2>
-<h3 id="meta-talk-subtitle">Subtitle</h3>
-<p><br></p>
-<h4 id="meta-author">Daniel J. McDonald</h4>
-<p></p>
-<p>Venue – dd Somemonth yyyy</p>
-</section>
-</div>
-</section>
-<section id="slides-begin" class="slide level2">
-<h2>Slides begin</h2>
-</section>
-<section id="callouts" class="slide level2">
-<h2>Callouts</h2>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Note</strong></p>
-</div>
-<div class="callout-content">
-<p>You can use these. See <a href="https://quarto.org/docs/authoring/callouts.html" class="uri">https://quarto.org/docs/authoring/callouts.html</a></p>
+<div class="w-80">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="gfx/qr-talk.png" class="quarto-figure quarto-figure-center" height="225"></p>
+</figure>
 </div>
 </div>
 </div>
 </section>
-<section id="final-slide" class="slide level2 smaller">
-<h2>Final slide</h2>
-<h3 id="thanks">Thanks:</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
+<section id="why-produce-forecasts" class="slide level2">
+<h2>Why produce forecasts?</h2>
 <ul>
-<li>The whole <a href="https://delphi.cmu.edu/about/team/">CMU Delphi Team</a> (across many institutions)</li>
-<li>Optum/UnitedHealthcare, Change Healthcare.</li>
-<li>Google, Facebook, Amazon Web Services.</li>
-<li>Quidel, SafeGraph, Qualtrics.</li>
-<li>Centers for Disease Control and Prevention.</li>
-<li>Council of State and Territorial Epidemiologists</li>
+<li>Surveillance systems provide a comprehensive picture of disease activity</li>
+<li>Fundamental for situational awareness and risk communication</li>
+<li>But they measure activity <span class="tertiary">after</span> it has occurred</li>
+<li>Do not anticipate future trends to inform risk assessment and healthcare preparedness</li>
 </ul>
-</div><div class="column" style="width:50%;">
-<p><img data-src="gfx/qr-epiprocess.png" width="300"> <img data-src="gfx/qr-epipredict.png" width="300"></p>
+</section>
+<section id="the-state-of-forecasting-early-2010s" class="slide level2">
+<h2>The state of forecasting, early 2010s</h2>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Comparing the accuracy of forecasting applications is difficult because forecasting methods, forecast outcomes, and reported validation metrics varied widely.</p>
+<p>– Chretien and others, PLOS ONE, 2014</p>
 </div>
 </div>
-<div data-layout-row="1" data-fig-align="center">
-<p><img data-src="gfx/delphi.jpg" height="100"> <img data-src="gfx/berkeley.jpg" height="100"> <img data-src="gfx/cmu.jpg" height="100"> <img data-src="gfx/ubc.jpg" width="250"> <img data-src="gfx/usc.jpg" width="250"> <img data-src="gfx/stanford.jpg" width="250"></p>
 </div>
-<p><img src="gfx/delphi.jpg" class="slide-logo"></p>
+<dl>
+<dt><span class="tertiary">Many models</span></dt>
+<dd>
+Most were published months to years after the forecasted event
+</dd>
+<dt><span class="tertiary">Different targets</span></dt>
+<dd>
+Weekly incidence, epidemic duration, monthly visits, time of peak
+</dd>
+<dt><span class="tertiary">Different evaluation metrics</span></dt>
+<dd>
+Mean absolute error, median absolute error, correlation
+</dd>
+<dt><span class="tertiary">Unclear utility to public health</span></dt>
+<dd>
+<span style="color: white">white</span>
+</dd>
+</dl>
+
+<aside><div>
+<p>Some slides courtesy of <a href="https://reichlab.io">Prof.&nbsp;Nicholas Reich</a></p>
+</div></aside></section>
+<section id="section-3" class="slide level2">
+<h2></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://hubverse.io/en/latest/_images/hub-timeline.png" class="quarto-figure quarto-figure-center" height="600"></p>
+</figure>
+</div>
+
+<aside><div>
+<p>Figure by Alex Vespignani and Nicole Samay</p>
+</div></aside></section>
+<section id="why-is-collaborative-modelling-important" class="slide level2">
+<h2>Why is collaborative modelling important?</h2>
+<div class="flex">
+<div class="w-50">
+<div style="font-size: 80%">
+<p><span class="tertiary">Ensemble models are both more accurate and useful than individual models</span></p>
+<ul>
+<li>Even a simple average across models typically has better predictive performance than most or all individual models</li>
+</ul>
+<p><span class="tertiary">Scientific and structural benefits of modelling via Hubs:</span></p>
+<ul>
+<li>Comparable evaluation across different models</li>
+<li>Opportunity for scientific exchange, methods &amp; data sharing</li>
+<li>Transparency of model outputs</li>
+<li>Venue for communication with stakeholders</li>
+</ul>
+</div>
+</div>
+<div class="w-50">
+<p><span class="primary">Accuracy of 2022–23 CDC FluSight Models</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="gfx/2023-flu-scores-1.svg" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="key-ingredients" class="slide level2">
+<h2>Key ingredients</h2>
+<p><span class="primary">A target signal that PH cares about</span></p>
+<p>The US CDC uses <span class="tertiary">weekly laboratory confirmed influenza hospital admissions</span></p>
+<ul>
+<li>Reported to CDC with a few-day delay (required under a funding law, ~2021)</li>
+<li>We (CMU’s Delphi Group) provides these (and many other signals) in a public API</li>
+<li>We track revisions and backfill</li>
+<li>Previously used ILI (ECDC uses ILI)</li>
+</ul>
+<div class="flex">
+<div class="w-50">
+<p><img data-src="https://www.cdc.gov/flu/images/weekly/flusight/FluSight-logo.jpg?_=02966"></p>
+</div>
+<div class="w-50">
+<p><img data-src="https://respicast.ecdc.europa.eu/assets/media/respicast_logo10.png" style="background-color: #002c62; padding-right: 50px"></p>
+</div>
+</div>
+</section>
+<section id="canada-has" class="slide level2">
+<h2>Canada has…</h2>
+<ul>
+<li>???</li>
+<li>Ontario is working with UGuelph to provide data</li>
+<li>BC has admissions on a Shiny app, I’m trying to get the raw data</li>
+<li>Other provinces + territories …</li>
+<li>We’ve scraped Test Positivity off the PHAC website, putting it in an API</li>
+</ul>
+</section>
+<section id="our-groups" class="slide level2">
+<h2>Our group(s)</h2>
+<ul>
+<li>We can run a Hub and submit forecasts</li>
+<li>We need data access</li>
+<li>We can ensure its safety (we do this now)</li>
+<li>We want the target to be <span class="primary">useful</span></li>
+<li>We need more teams to participate!</li>
+</ul>
+<div class="callout callout-important no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>just need to run a model, and submit a PR every week</p>
+</div>
+</div>
+</div>
+</section>
+<section id="collaborators-personnel-and-funding" class="slide level2">
+<h2>Collaborators, personnel, and funding</h2>
+<div class="flex">
+<div class="w-60">
+<div style="font-size: 80%">
+<p><span class="primary">Hub Director:</span> Prof.&nbsp;Monica G. Cojocaru</p>
+<p>Assoc. Dean Research and Grad Studies, CEPS UGuelph</p>
+<hr>
+<p><span class="tertiary">— Academic stakeholders</span></p>
+<p>Daniel J. McDonald - UBC</p>
+<p>Graham Taylor - Prof and CRC, Director of Care-AI, UGuelph</p>
+<p><span class="tertiary">— PH / Industry stakeholders</span></p>
+<p>Dr.&nbsp;Michelle Murti - Assoc. Chief Medical Officer, MoH Ontario</p>
+<p>Dr.&nbsp;Kamil Malikov - Director, MoH Ontario</p>
+<p>Tiffany Fitzpatrick – Epidemiologist, PH Ontario</p>
+<p>Dr.&nbsp;E Thommes - Senior Modelling Expert <span class="primary">Sanofi Global</span></p>
+<p>Dr.&nbsp;J Lee - Medical Head <span class="primary">Sanofi Canada</span></p>
+<p>Dion Neame MD - Senior Expert <span class="primary">Sanofi Canada</span></p>
+</div>
+</div>
+<div class="w-40">
+<div class="center">
+<p><img data-src="gfx/funding.jpeg"></p>
+</div>
+</div>
+</div>
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
-<p>Title — dajmcdon/myspecial-talk</p>
+<p>An Infectious Disease Forecast Hub for Canada — dajmcdon/phac-emnid-fcast-hub</p>
+</div>
 </div>
 </section>
     </div>
@@ -417,7 +548,6 @@
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -673,18 +803,7 @@
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -716,11 +835,57 @@
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
-      function tippyHover(el, contentFn) {
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+              // target, if specified
+              link.setAttribute("target", "_blank");
+              if (link.getAttribute("rel") === null) {
+                link.setAttribute("rel", "noopener");
+              }
+              // default icon
+              link.classList.add("external");
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -730,8 +895,17 @@
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -745,7 +919,11 @@
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {
@@ -785,22 +963,6 @@
           });
         }
       }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-          var filterRegex = new RegExp('/' + window.location.host + '/');
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href);
-        }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-              // target, if specified
-              link.setAttribute("target", "_blank");
-              // default icon
-              link.classList.add("external");
-          }
-        }
     });
     </script>
     

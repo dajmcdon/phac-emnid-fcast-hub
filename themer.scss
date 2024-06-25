@@ -15,8 +15,9 @@ $fourth-colour: #311847;
 $body-bg: #fefefe;
 $presentation-heading-color: $primary;
 $presentation-font-size-root: 36px;
+$code-block-font-size: 0.75em;
+$link-color: $tertiary;
 
-$link-color: $primary;
 
 /*-- scss:rules --*/
 
@@ -24,3 +25,42 @@ $link-color: $primary;
 .secondary {color: $secondary;}
 .tertiary {color: $tertiary;}
 .fourth-colour {color: $fourth-colour;}
+.center {text-align: center;}
+
+.reveal .callout.callout-style-simple .callout-body,
+.reveal .callout.callout-style-default .callout-body,
+.reveal .callout.callout-style-simple div.callout-title,
+.reveal .callout.callout-style-default div.callout-title {
+  font-size: 1.2em;
+}
+
+.reveal .callout.callout-style-default .callout-icon::before,
+.reveal .callout.callout-style-simple .callout-icon::before {
+  height: 2.5rem;
+  width: 2.5rem;
+  background-size: 2.5rem 2.5rem;
+}
+
+.reveal .callout.callout-titled .callout-icon::before {
+  margin-top: 1.75rem;
+}
+
+
+ol {
+  padding-left: 0.5em;
+}
+
+
+ul {
+ 	list-style: none; /* Remove default bullets */
+}
+
+
+ul li::marker {
+	color: $primary;
+}
+
+dt {
+  color: $tertiary;
+}
+

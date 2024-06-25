@@ -4,7 +4,6 @@ format:
   revealjs:
     theme: [default, themer.scss]
     css: tachyons-minimal.css
-    logo: "gfx/delphi.jpg"
     chalkboard: true
     width: 1280
     height: 720

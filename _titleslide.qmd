@@ -1,7 +1,4 @@
----
----
 
-\DeclareMathOperator*{\minimize}{minimize}
 
 ```{r setup}
 #| include: false
@@ -35,11 +32,13 @@ snapshots_all |>
   ) + 
   # geom_vline(aes(color = factor(version), xintercept = version), lty = 3, 
   #           size = 0.5) +
-  scale_x_date(minor_breaks = "month", labels = NULL) +
+  scale_x_date(minor_breaks = "month", labels = NULL, expand = expansion(0)) +
   labs(x = "", y = "") + 
   theme_void() +
-  coord_cartesian(xlim = as.Date(c("2020-10-01", NA)), ylim = c(-5, NA)) +
+  coord_cartesian(xlim = as.Date(c("2020-10-01", max(snapshots$time_value))), 
+                  ylim = c(-4, NA)) +
   scale_color_viridis_d(option = "B", end = .8) +
+  scale_y_continuous(expand = expansion(0)) +
   theme(legend.position = "none", panel.background = element_blank()) +
   geom_line(
     data = snapshots %>% filter(latest),
@@ -50,11 +49,11 @@ snapshots_all |>
 
 
 ::: flex
-::: w-20
+::: w-30
 
 :::
-::: w-80
-## {{< meta talk-title >}} {background-image="gfx/cover-art-1.svg" background-position="bottom"}
+::: w-70
+## {{< meta talk-title >}} {background-image="gfx/cover-art-1.svg" background-size="cover"}
 
 ### {{< meta talk-subtitle >}}
 
@@ -64,6 +63,17 @@ snapshots_all |>
 {{< meta other-authors >}}
 
 {{< meta talk-date >}}
+
+
 :::
 :::
 
+
+::: flex
+::: w-20
+
+:::
+::: w-80
+![](gfx/qr-talk.png){height=225px fig-align="center"}
+:::
+:::
